@@ -2,6 +2,7 @@
 #include<vector>
 #include<iostream>
 #include<sstream>
+#include<cstdlib>
 
 using namespace std;
 
@@ -10,6 +11,9 @@ using namespace std;
 //NOTE: only works with gcc
 #define foreach(var, c)                                         \
     for(typeof(c.begin()) var=c.begin(); var != c.end(); ++var)
+
+#define forrange(var, r)                        \
+    for(size_t var=0; var < r; ++var)
 
 //Returns input up to first occurrence of delim.
 //NOTE: removes delim. Subsequent call to input() will not return delim
@@ -33,18 +37,19 @@ vector<T> tokenize(const string& s){
 }
 
 template<typename T, typename U>
-void filter(T& c, U item) {
+void filter(T& c, const U& item) {
     c.erase(remove(range(c), item), c.end());
 }
 
 template<typename T, typename U>
-void filter_if(T& c, U item) {
+void filter_if(T& c, const U& item) {
     c.erase(remove_if(range(c), item), c.end());
 }
 
 template<typename T>
-void print(T t) {
-    foreach(item, t) {
-        cout << *item << endl;
-    }
+void print_all(T t) {
+    foreach(item, t) cout << *item << endl;
 }
+
+template<typename T>
+void print_one(T t) {cout << t << endl;}
