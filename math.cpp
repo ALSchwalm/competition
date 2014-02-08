@@ -23,3 +23,18 @@ vector<unsigned int> primes(unsigned int len) {
 
     return out;
 }
+
+/**
+ * Call 'u' with every permutation of 't'
+ *
+ * Ex usage: foreach_permutation(string("cat"), print_one<string>)
+ * prints:
+ *  act, atc, cat, cta, tac, tca
+ */
+template<typename T, typename U>
+void foreach_permutation(T t, U u) {
+    sort(range(t));
+    do {
+        u(t);
+    } while (next_permutation(range(t)));
+}   
