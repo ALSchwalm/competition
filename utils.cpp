@@ -23,6 +23,13 @@ string input(char delim='\n') {
     return temp;
 }
 
+
+/**
+ * Break a string into a vector tokens
+ *
+ * Ex usage: tokenize<int>("12 32 43 19") or
+             tokenize<int>(input())
+ */
 template<typename T>
 vector<T> tokenize(const string& s){
     istringstream i(s);
@@ -47,9 +54,9 @@ void filter_if(T& c, const U& item) {
 }
 
 template<typename T>
-void print_all(T t) {
-    foreach(item, t) cout << *item << endl;
+void print_all(const T& t) {
+    foreach(item, t) print_one(*item);
 }
 
 template<typename T>
-void print_one(T t) {cout << t << endl;}
+void print_one(const T& t) {cout << t << endl;}
