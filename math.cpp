@@ -3,22 +3,21 @@
 #include "utils.cpp"
 
 //Get primes up to but not including len
-vector<unsigned int> primes(unsigned int len) {
-    vector<char> primes(len, true);
-    
-    for(size_t i=3; i < sqrt(len)+1; i+=2) {
-        if (primes[i]) {
-            for(size_t j=i*i; j < len; j+=i) {
-                primes[j] = false;
-            }
-        }
-    }
-
+vector<unsigned int> primes(unsigned int max) {
+    vector<char> primes(max/8+1, ~0);
     vector<unsigned int> out;
     out.push_back(2);
-    for(size_t i=3; i < len; i+=2) {
-        if (primes[i])
+
+    for(size_t i=3; i < max ; i+=2) {
+        if (primes[i/8] & (1 << (i % 8))) {
             out.push_back(i);
+
+            if (i < sqrt(max)+1) {
+                for(size_t j=i*i; j < max; j+=i) {
+                    primes[j/8] &= ~(1 << (j % 8));
+                }
+            }
+        }
     }
 
     return out;
