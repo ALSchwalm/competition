@@ -12,51 +12,52 @@ int count_if(begin, end, predicate)
 #+END_SRC
 
 #+BEGIN_SRC cpp
-pair<it1, it2> mismatch(begin1, end1, begin2)
-pair<it1, it2> mismatch(begin1, end1, begin2, predicate)
+pair<it1, it2> mismatch(begin1, end1, begin2, [predicate])
 #+END_SRC
+
 Finds the first points at which the ranges differ. Returns a pair of iterators to the points where they differ. =predicate= will be used to determine equality if it is provided.
 
 #+BEGIN_SRC cpp
-bool equal(begin1, end1, begin2)
-bool equal(begin1, end1, begin2, predicate)
+bool equal(begin1, end1, begin2, [predicate])
 #+END_SRC
+
 Returns =true= if the ranges are equal. =predicate= will be used to determine equality if provided. 
 
 #+BEGIN_SRC cpp
 iterator find(begin1, end1, target)
 iterator find_if(begin1, end1, predicate)
 #+END_SRC
+
 Returns an iterator to the first occurrence of =target= in the range. =predicate= will be used to determine equality if it is provided.
 
 #+BEGIN_SRC cpp
-iterator find_end(begin1, end1, begin2, end2)
-iterator find_end(begin1, end1, begin2, end2, predicate)
+iterator find_end(begin1, end1, begin2, end2, [predicate])
 #+END_SRC
+
 Finds the last occurrence of the range =(begin2, end2)= in the range =(begin1, end1)=. =predicate= will be used to determine equality if it is provided.
 
 #+BEGIN_SRC cpp
-iterator find_first_of(begin1, end1, begin2, end2)
-iterator find_first_of(begin1, end1, begin2, end2, predicate)
+iterator find_first_of(begin1, end1, begin2, end2, [predicate])
 #+END_SRC
+
 Searches the range =(begin1, end1)= for any element of the range =(begin2, end2)=. =predicate= will be used to determine equality if it is provided.
 
 #+BEGIN_SRC cpp
-iterator adjacent_find(begin, end)
-iterator adjacent_find(begin, end, predicate)
+iterator adjacent_find(begin, end, [predicate])
 #+END_SRC
+
 Returns an iterator to the first occurrence of consecutive identical elements in the range =(begin, end)=.
 
 #+BEGIN_SRC cpp
-iterator search(begin1, end1, begin2, end2)
-iterator search(begin1, end1, begin2, end2, predicate)
+iterator search(begin1, end1, begin2, end2, [predicate])
 #+END_SRC
+
 Returns an iterator to the first occurrence of (begin2, end2) in the range =(begin1, end1)=
 
 #+BEGIN_SRC cpp
-iterator search_n(begin, end, count, value)
-iterator search_n(begin, end, count, value, predicate)
+iterator search_n(begin, end, count, value, [predicate])
 #+END_SRC
+
 Returns an iterator to the first occurrence of =n= copies of =value= in the range =(begin, end)=
 
 ** Modifying Sequence Operations
@@ -64,50 +65,139 @@ Returns an iterator to the first occurrence of =n= copies of =value= in the rang
 #+BEGIN_SRC cpp
 iterator copy(begin1, end1, begin2)
 #+END_SRC
+
 Copy the elements from the range =(begin1, end1)= to a not smaller range starting at =begin2=. Returns one past the end of the output range.
 
 #+BEGIN_SRC cpp
 iterator copy_backward(begin1, end1, end2)
 #+END_SRC
+
 Same as above, but starts by copying =end1= to =end2=, downward.
 
 #+BEGIN_SRC cpp
 void fill(begin, end, val)
 #+END_SRC
-Fill the range =(begin, end)= with val.
 
-#+BEGIN_SRC cpp
-void fill_n(begin, count, val)
-#+END_SRC
-Assign the first =count= elements of the range starting at =begin= to =val=.
+Fill the range =(begin, end)= with val.
 
 #+BEGIN_SRC cpp
 iterator transform(begin1, end1, begin2, function)
 iterator transform(begin1, end1, begin2, begin3, function)
 #+END_SRC
-The first form applies =function= to the elements from the range =(begin1, end1)= and stores them in the range starting at =begin2=. The second form applies a binary function with the pattern =begin3= = =function(begin1, begin2)=, for the length of the range =(begin1, end1)=.
 
-#+BEGIN_SRC cpp
-void generate(begin, end, function)
-#+END_SRC
-Assign each element in the range =(begin, end)= a value returned by =function=.
-
-#+BEGIN_SRC cpp
-void generate_n(begin, count, function)
-#+END_SRC
-Assign =count= elements from =function= to the range starting at =begin=.
+The first form applies =function= to the elements from the range =(begin1, end1)= and stores them in the range starting at =begin2=. The second form applies a binary function with the pattern =begin3= = =function(begin1, begin2)=, for the length of the range =(begin1, end1)=. Returns output iterator to the last element transformed.
 
 #+BEGIN_SRC cpp
 iterator remove(begin, end, value)
 iterator remove_if(begin, end, predicate)
 #+END_SRC
+
 Sort the range =(begin, end)= such that all occurrences of =value= are at the end. Returns an iterator to one past the end of the range without any of those values. =predicate= will be used to determine equality if given.
 
 #+BEGIN_SRC cpp
-iterator remove_copy(begin1, end1, begin2, value)
-iterator remove_copy_if(begin1, end1, begin2, predicate)
+void remove_copy(begin1, end1, begin2, value)
+void remove_copy_if(begin1, end1, begin2, predicate)
 #+END_SRC
+
 Copy the values from =(begin1, end1)= to the range starting at =begin2= omitting =value=.
 
+#+BEGIN_SRC cpp
+void replace(begin, end, old_val, new_val)
+void replace_if(begin, end, predicate, new_val)
+#+END_SRC
+
+Replace all of the elements in the range =(begin, end)= which are equal to 
+=old_val= (or satisfy =predicate= in the second case) with =new_val=.
+
+#+BEGIN_SRC cpp
+void replace_copy(begin1, end1, begin2, old_val, new_val)
+void replace_copy_if(begin1, end1, begin2, predicate, new_val)
+#+END_SRC
+
+Copy all of the values from the range =(begin1, end1)= to the range starting at
+=begin2=, replacing all of the values equal to =old_val= with =new_val=.
+
+#+BEGIN_SRC cpp
+iterator unique(begin, end, [predicate])
+#+END_SRC
+
+Sort the range =(begin, end)= such that all duplicate elements are at the end. Returns and iterator to the first of the duplicates.
+
+#+BEGIN_SRC cpp
+iterator partition(begin, end, predicate)
+#+END_SRC
+
+Reorder the range =(begin, end)= such that all of the elements satisfying the predicate precede the ones which do not. Returns an iterator to the first element of the second group.
+
+** Sorting Operations
+
+#+BEGIN_SRC cpp
+void partial_sort(begin, middle, end, [compare])
+#+END_SRC
+
+Sort the range =(begin, end)= such that the range =(begin, middle)= contain the smallest elements of the range in sorted order. This is faster than =sort()= if you only need, say, the 3 smallest elements of the range.
+
+
+#+BEGIN_SRC cpp
+void stable_sort(begin, end, [compare])
+#+END_SRC
+
+Sort the range =(begin, end)=, keeping the relative order of the elements.
+
+#+BEGIN_SRC cpp
+void nth_element(begin, nth, end, [compare])
+#+END_SRC
+
+Sort the range =(begin, end)= such that the element pointed at by =nth= is changed to whatever it would be if the range was sorted. This also partitions the range such that the elements to the left of =nth= are less than it, and the elements to the right are greater.
+
+** Binary Sorting Operations (for sorted ranges)
+
+#+BEGIN_SRC cpp
+iterator lower_bound(begin, end, value, [compare])
+#+END_SRC
+
+Returns an iterator to the first element in the range =(begin, end)= which is not less than =value=.
+
+#+BEGIN_SRC cpp
+iterator upper_bound(begin, end, value, [compare])
+#+END_SRC
+
+Returns an iterator to the first element in the range =(begin, end)= which is greater than =value=.
+
+#+BEGIN_SRC cpp
+bool binary_search(begin, end, value, [compare])
+#+END_SRC
+
+Determine if =value= is in the sorted range =(begin, end)=.
+
+** Set operations (on sorted ranges)
+
+#+BEGIN_SRC cpp
+iterator merge(begin1, end1, begin2, end2, begin3, [compare])
+#+END_SRC
+
+Merge the two sorted ranges =(begin1, end1)=, =(begin2, end2)=, into a range beginning at =begin3=. WARNING: The output range must not overlap with either of the input ranges.
+
+#+BEGIN_SRC cpp
+bool includes(begin1, end1, begin2, end2, [compare])
+#+END_SRC
+
+Returns true if every element of the range =(begin2, end2)= is found within the range =(begin1, end1)=. Also returns true if the range =(begin2, end2)= is empty.
+
+#+BEGIN_SRC cpp
+bool set_difference(begin1, end1, begin2, end2, begin3, [compare])
+#+END_SRC
+
+Copies the elements from the range =(begin1, end1)= which are not found in the range =(begin2, end2)= to the output range starting at =begin3=. The output range cannot overlap with either of the input ranges.
+
+#+BEGIN_SRC cpp
+bool set_intersection(begin1, end1, begin2, end2, begin3, [compare])
+#+END_SRC
+
+Copies the elements present in both ranges =(begin1, end1)= and =(begin2, end2)= into the range starting at =begin3=. The output range cannot overlap with either of the input ranges.
+
+#+BEGIN_SRC cpp
+bool set_symmetric_difference(begin1, end1, begin2, end2, begin3, [compare])
+#+END_SRC
 
 
