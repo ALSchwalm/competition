@@ -10,10 +10,10 @@ using namespace std;
 
 //NOTE: only works with gcc
 #define foreach(var, c) \
-    for(typeof(c.begin()) var=c.begin(); var != c.end(); ++var)
+    for(typeof((c).begin()) var=(c).begin(); var != c.end(); ++var)
 
 #define forrange(var, r) \
-    for(size_t var=0; var < r; ++var)
+    for(size_t var=0; var < (r); ++var)
 
 //Returns input up to first occurrence of delim.
 //NOTE: removes delim. Subsequent call to input() will not return delim
