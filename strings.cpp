@@ -1,3 +1,4 @@
+#include "utils.cpp"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -18,25 +19,21 @@ T convertTo(U& from)
  * Break a string into a vector tokens
  *
  * Ex usage: tokenize<int>("12 32 43 19") or
-             tokenize<int>(input())
- * Adapted from http://goo.gl/RBt6qS
+ *           tokenize<int>(input())
  */
-template<typename T>
-vector<T> tokenize(string& in, string delimiters = " \t\n")
-{
-    const int len = in.length();
-    int i = 0;
-    vector<T> c;
 
-    while (i < len) {
-        i = in.find_first_not_of(delimiters, i);
-        int j = in.find_first_of(delimiters, i);
-        if(j == -1) {
-            c.push_back(convertTo<T>(in.substr(i)));
-            break;
-        }
-        c.push_back(convertTo<T>(in.substr(i, j-i)));
-        i = j + 1;
+template<typename T>
+vector<T> tokenize(string in, string delimiters = " \t\n")
+{
+    foreach(delim, delimiters)
+        replace(in.begin(), in.end(), *delim, ' ');
+
+    stringstream s(in);
+    T token;
+    vector<T> tokens;
+    while(s >> token) {
+        tokens.push_back(token);
     }
-    return c;
+
+    return tokens;
 }
