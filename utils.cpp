@@ -34,11 +34,9 @@ void filter_if(T& c, const U& item) {
 }
 
 template<typename T, typename U>
-T comprehend(vector<T> in, U call) {
-    vector<T> v;
-    T i;
-    foreach(i, in) v.push_back(call(in));
-    return v;
+T apply(T in, U call) {
+    transform(in.begin(), in.end(), in.begin(), call);
+    return in;
 }
 
 template<typename T>
