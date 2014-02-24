@@ -33,6 +33,14 @@ void filter_if(T& c, const U& item) {
     c.erase(remove_if(range(c), item), c.end());
 }
 
+template<typename T, typename U>
+T comprehend(vector<T> in, U call) {
+    vector<T> v;
+    T i;
+    foreach(i, in) v.push_back(call(in));
+    return v;
+}
+
 template<typename T>
 void print(const T& t) {cout << t << endl;}
 
