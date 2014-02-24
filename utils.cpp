@@ -34,9 +34,9 @@ void filter_if(T& c, const U& item) {
 }
 
 template<typename T>
-void print_all(const T& t) {
-    foreach(item, t) print_one(*item);
-}
+void print(const T& t) {cout << t << endl;}
 
 template<typename T>
-void print(const T& t) {cout << t << endl;}
+void print_all(const T& t) {
+    foreach(item, t) print(*item);
+}
