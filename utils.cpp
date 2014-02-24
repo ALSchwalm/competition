@@ -9,10 +9,10 @@ using namespace std;
 #define range(container) container.begin(), container.end()
 
 //NOTE: only works with gcc
-#define foreach(var, c)                                         \
+#define foreach(var, c) \
     for(typeof(c.begin()) var=c.begin(); var != c.end(); ++var)
 
-#define forrange(var, r)                        \
+#define forrange(var, r) \
     for(size_t var=0; var < r; ++var)
 
 //Returns input up to first occurrence of delim.
@@ -21,26 +21,6 @@ string input(char delim='\n') {
     string temp;
     getline(cin, temp, delim);
     return temp;
-}
-
-
-/**
- * Break a string into a vector tokens
- *
- * Ex usage: tokenize<int>("12 32 43 19") or
-             tokenize<int>(input())
- */
-template<typename T>
-vector<T> tokenize(const string& s){
-    istringstream i(s);
-    vector<T> tokens;
-    T token;
-
-    while(i >> token) {
-        tokens.push_back(token);
-    }
-    
-    return tokens;
 }
 
 template<typename T, typename U>
@@ -59,4 +39,4 @@ void print_all(const T& t) {
 }
 
 template<typename T>
-void print_one(const T& t) {cout << t << endl;}
+void print(const T& t) {cout << t << endl;}
